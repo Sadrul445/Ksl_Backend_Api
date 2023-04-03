@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'type'
     ];
 
     /**
@@ -46,5 +47,7 @@ class User extends Authenticatable
     public function blog(){
         return $this->hasMany(Blog::class);
     }
-  
+    public function media(){
+        return $this->hasMany(Media::class);
+    }
 }

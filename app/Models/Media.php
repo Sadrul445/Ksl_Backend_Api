@@ -15,7 +15,7 @@ class Media extends Model
         'newspaper_url',
         'newspaper_title',
         'newspaper_description',
-        'blog_id'
+        'user_id'
     ];
     public function user(){
         return $this->belongsTo(User::class);

@@ -24,7 +24,7 @@ Route::delete('/blogs/delete/{id}',[BlogController::class,'destroy_blog']);
 //media
 Route::get('/medias',[MediaController::class,'show_all_media']);
 Route::get('/medias/{id}',[MediaController::class,'show_single_media']);
-
+Route::delete('/medias/delete/{id}',[MediaController::class,'destroy_media']);
 
 
 Route::group(['middleware' => ['auth:sanctum']],function () {

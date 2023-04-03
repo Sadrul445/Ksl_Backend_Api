@@ -21,7 +21,7 @@ class MediaController extends Controller
         $media = Media::find($id);
         return response()->json($media,200);
     }
-    //---[ CREATE_BLOG ]---
+    //---[ CREATE_MEDIA ]---
     public function create_media(Request $request)
     {
         //validation
@@ -33,7 +33,7 @@ class MediaController extends Controller
                 'newspaper_url' => 'required',
                 'newspaper_title' => 'required',
                 'newspaper_description' => 'required',
-                'blog_id' => 'required|integer|exists:blogs,id'
+                'user_id' => 'required|integer|exists:users,id'
             ]
         );
         $decodedImage = base64_decode($request->input('image'));
@@ -50,7 +50,7 @@ class MediaController extends Controller
                 'newspaper_url' => $request->newspaper_url,
                 'newspaper_title' => $request->newspaper_title,
                 'newspaper_description' => $request->newspaper_description,
-                'blog_id' => $request->blog_id
+                'user_id' => $request->user_id
             ]
         );
         return response()->json([
@@ -58,7 +58,7 @@ class MediaController extends Controller
             'status' => 'success',
         ], 200);
     }
-    
+
     //---[ UPDATE_MEDIA ]---
     public function update_media(Request $request,$id)
     {
@@ -70,7 +70,7 @@ class MediaController extends Controller
         $media->newspaper_url = $request->input('newspaper_url');
         $media->newspaper_title = $request->input('newspaper_title');
         $media->newspaper_description = $request->input('newspaper_description');
-        $media->blog_id = $request->input('blog_id');
+        $media->user_id = $request->input('user_id');
 
         // Update the image file if a new image is uploaded
         if ($request->hasFile('image')) {
@@ -90,5 +90,8 @@ class MediaController extends Controller
             'status' => 'updated'
             // 'data' => $media,
         ]);
+    }
+    public function destroy_media(Request $request,$id){
+        return Media::destroy($id);
     }
 }

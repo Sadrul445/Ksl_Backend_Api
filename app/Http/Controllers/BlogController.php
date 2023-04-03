@@ -84,7 +84,7 @@ class BlogController extends Controller
 
         // Update the blog post fields
         $blog->title = $request->input('title');
-        $blog->author_name = $request->input('author_name');
+        // $blog->author_name = $request->input('author_name');
         $blog->publication_date = $request->input('publication_date');
         $blog->description = $request->input('description');
         $blog->user_id = $request->input('user_id');
