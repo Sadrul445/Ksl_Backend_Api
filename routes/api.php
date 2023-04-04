@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BoothController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\MediaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +29,16 @@ Route::get('/medias/{id}',[MediaController::class,'show_single_media']);
 Route::delete('/medias/delete/{id}',[MediaController::class,'destroy_media']);
 
 //digital_booths
+
 Route::get('/booths',[BoothController::class,'show_all_booths']);
 Route::get('/booths/{id}',[BoothController::class,'show_single_booths']);
 Route::delete('/booths/delete/{id}',[BoothController::class,'delete_booths']);
+
+//Branch
+Route::get('/branches',[BranchController::class,'show_all_branches']);
+Route::get('/branches/{id}',[BranchController::class,'show_single_branches']);
+Route::delete('/branches/delete/{id}',[BranchController::class,'delete_branches']);
+
 
 Route::group(['middleware' => ['auth:sanctum']],function () {
     //Authentication
@@ -45,6 +53,10 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     
     //Digital_Booth
     Route::post('/booths',[BoothController::class,'create_booths']);    
-    Route::post('/booths/{id}',[BoothController::class,'update_booths']);    
+    Route::post('/booths/{id}',[BoothController::class,'update_booths']);
+    
+    //Branch
+    Route::post('/branches',[BranchController::class,'create_branches']);    
+    Route::post('/branches/{id}',[BranchController::class,'update_branches']);
 }
 );

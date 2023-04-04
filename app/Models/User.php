@@ -53,4 +53,7 @@ class User extends Authenticatable
     public function booth(){
         return $this->hasMany(Booth::class);
     }
+    public function branch(){
+        return $this->hasMany(Branch::class);
+    }
 }
