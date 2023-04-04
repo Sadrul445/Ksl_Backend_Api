@@ -47,7 +47,7 @@ class BlogController extends Controller
         $request->validate(
             [
                 'title' => 'required|string',
-                'author_name' => 'required|string',
+                // 'author_name' => 'required|string',
                 'publication_date' => 'required',
                 'description' => 'required',
                 'user_id' => 'required|integer|exists:users,id',
@@ -63,7 +63,7 @@ class BlogController extends Controller
         $blog = Blog::create(
             [
                 'title' => $request->title,
-                'author_name' => $request->author_name,
+                // 'author_name' => $request->author_name,
                 'publication_date' => $request->publication_date,
                 'description' => $request->description,
                 'user_id' => $request->user_id,
@@ -82,9 +82,8 @@ class BlogController extends Controller
     {
         $blog = Blog::findOrFail($id);
 
-        // Update the blog post fields
+        // Update the blog fields
         $blog->title = $request->input('title');
-        // $blog->author_name = $request->input('author_name');
         $blog->publication_date = $request->input('publication_date');
         $blog->description = $request->input('description');
         $blog->user_id = $request->input('user_id');
@@ -95,15 +94,31 @@ class BlogController extends Controller
             if (File::exists($destination)) {
                 File::delete($destination);
             }
-            $image = $request->file('image')->store('Updated_Blog_Images/', 'public');
-            $blog->image = $image;
         }
-        // Save the updated blog post to the database
+
+        // Decode->the encoded input image
+        $base64_encode_image = $request->input('image');
+        $image_data = base64_decode($base64_encode_image);
+
+        //Naming & Storing File
+        $image_name = 'KSL_Blog_Image_' . time() . '.png';
+        Storage::disk('public')->put("Updated_Blog_Images/{$image_name}", $image_data);
+        
+        $blog->image = "Updated_Blog_Images/{$image_name}";
+        
+        // Save the updated blog to the database
         $blog->save();
 
-        // Return the updated blog post as a JSON response
+        //     $image = $request->file('image')->store('Updated_Blog_Images/', 'public');       
+        //     // $image = $request->Storage::putFile('Updated_Blog_Images/');      
+        //     $blog->image = $image;
+        // Save the updated blog to the database
+        // $blog->save();
+        // }
+
+        // Return the updated blog as a JSON response
         return response()->json([
-            'message' => 'Blog post updated successfully',
+            'message' => 'Blog updated successfully',
             'status' => 'updated'
             // 'data' => $blog,
         ]);

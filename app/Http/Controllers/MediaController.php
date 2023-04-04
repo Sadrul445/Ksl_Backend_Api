@@ -19,7 +19,7 @@ class MediaController extends Controller
     public function show_single_media(Request $request, $id)
     {
         $media = Media::find($id);
-        return response()->json($media,200);
+        return response()->json($media, 200);
     }
     //---[ CREATE_MEDIA ]---
     public function create_media(Request $request)
@@ -39,9 +39,9 @@ class MediaController extends Controller
         $decodedImage = base64_decode($request->input('image'));
 
         //store the decoded image data in the "Media_Images" directory
-        $decoded_Media_Image_Path = 'Media_Images/' . time() . '.png';
-        Storage::disk('public')->put($decoded_Media_Image_Path, $decodedImage);
-
+        $decoded_Media_Image_Path = 'KSL_Media_Image_' . time() . '.png';
+        Storage::disk('public')->put("Media_Images/{$decoded_Media_Image_Path}", $decodedImage);
+        
         $media = Media::create(
             [
                 'title' => $request->title,
@@ -53,6 +53,8 @@ class MediaController extends Controller
                 'user_id' => $request->user_id
             ]
         );
+
+        $media->image = "Updated_Media_Images/{$decoded_Media_Image_Path}";
         return response()->json([
             'message' => 'Media Created Successfully',
             'status' => 'success',
@@ -60,7 +62,7 @@ class MediaController extends Controller
     }
 
     //---[ UPDATE_MEDIA ]---
-    public function update_media(Request $request,$id)
+    public function update_media(Request $request, $id)
     {
         $media = Media::findOrFail($id);
 
@@ -78,12 +80,18 @@ class MediaController extends Controller
             if (File::exists($destination)) {
                 File::delete($destination);
             }
-            $image = $request->file('image')->store('Updated_Media_Images/', 'public');
-            $media->image = $image;
         }
+        // Decode->the encoded input image
+        $base64_encode_image = $request->input('image');
+        $image_data = base64_decode($base64_encode_image);
+
+        //Naming & Storing File
+        $image_name = 'KSL_Media_Image_' . time() . '.png';
+        Storage::disk('public')->put("Updated_Media_Images/{$image_name}", $image_data);
+        $media->image = "Updated_Media_Images/{$image_name}";
+
         // Save the updated Media to the database
         $media->save();
-
         // Return the updated Media as a JSON response
         return response()->json([
             'message' => 'Media updated successfully',
@@ -91,7 +99,8 @@ class MediaController extends Controller
             // 'data' => $media,
         ]);
     }
-    public function destroy_media(Request $request,$id){
+    public function destroy_media(Request $request, $id)
+    {
         return Media::destroy($id);
     }
 }
