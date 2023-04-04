@@ -47,14 +47,14 @@ class BranchController extends Controller
     //---[ UPDATE_BRANCH ]---
     public function update_branches(Request $request, $id)
     {
-        $booth = Branch::findOrFail($id);
+        $branches = Branch::findOrFail($id);
 
-        $booth->branches_name = $request->input('branches_name');
-        $booth->branches_address = $request->input('branches_address');
-        $booth->branches_helpline = $request->input('branches_helpline');
-        $booth->branches_email = $request->input('branches_email');
-        $booth->user_id = $request->input('user_id');
-        $booth->save();
+        $branches->branches_name = $request->input('branches_name');
+        $branches->branches_address = $request->input('branches_address');
+        $branches->branches_helpline = $request->input('branches_helpline');
+        $branches->branches_email = $request->input('branches_email');
+        $branches->user_id = $request->input('user_id');
+        $branches->save();
 
         return response()->json(
             [
@@ -63,9 +63,9 @@ class BranchController extends Controller
             ]
         );
     }
-        //---[ DELETE_BRANCHES ]---
-        public function delete_branches(Request $request, $id)
-        {
-            return Branch::destroy($id);
-        }
+    //---[ DELETE_BRANCHES ]---
+    public function delete_branches(Request $request, $id)
+    {
+        return Branch::destroy($id);
+    }
 }

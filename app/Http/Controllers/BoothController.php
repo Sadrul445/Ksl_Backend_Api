@@ -62,7 +62,6 @@ class BoothController extends Controller
             'status' => 'updated'
         ]);
     }
-        
     //---[ DELETE_BOOTHS ]---
     public function delete_booths(Request $request, $id)
     {
