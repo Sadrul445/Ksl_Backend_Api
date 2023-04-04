@@ -47,7 +47,6 @@ class BlogController extends Controller
         $request->validate(
             [
                 'title' => 'required|string',
-                // 'author_name' => 'required|string',
                 'publication_date' => 'required',
                 'description' => 'required',
                 'user_id' => 'required|integer|exists:users,id',
@@ -63,7 +62,6 @@ class BlogController extends Controller
         $blog = Blog::create(
             [
                 'title' => $request->title,
-                // 'author_name' => $request->author_name,
                 'publication_date' => $request->publication_date,
                 'description' => $request->description,
                 'user_id' => $request->user_id,

@@ -94,7 +94,7 @@ class MediaController extends Controller
         $media->save();
         // Return the updated Media as a JSON response
         return response()->json([
-            'message' => 'Media updated successfully',
+            'message' => 'Media Updated Successfully',
             'status' => 'updated'
             // 'data' => $media,
         ]);

@@ -10,10 +10,10 @@ class Booth extends Model
     use HasFactory;
 
     protected $fillable = [
-        'booth_name',
-        'booth_address',
-        'booth_helpline',
-        'booth_mail',
+        'booths_name',
+        'booths_address',
+        'booths_helpline',
+        'booths_email',
         'user_id'
     ];
 
