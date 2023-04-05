@@ -28,7 +28,7 @@ class BoothController extends Controller
             ]
         );
         return response()->json([
-            'message' => 'Booth Uploaded Successfully',
+            'message' => 'Booth Created Successfully',
             'status' => 'success',
         ], 200);
     }

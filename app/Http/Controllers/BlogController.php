@@ -69,7 +69,7 @@ class BlogController extends Controller
             ]
         );
         return response()->json([
-            'message' => 'Blog Uploaded Successfully',
+            'message' => 'Blog Created Successfully',
             'status' => 'success',
             // 'blog' => $blog
         ], 200);

@@ -28,7 +28,7 @@ class BranchController extends Controller
             ]
         );
         return response()->json([
-            'message' => 'Branch Uploaded Successfully',
+            'message' => 'Branch Created Successfully',
             'status' => 'success',
         ], 200);
     }

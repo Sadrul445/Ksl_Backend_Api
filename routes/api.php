@@ -4,7 +4,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BoothController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MediaController;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,10 +41,15 @@ Route::get('/branches',[BranchController::class,'show_all_branches']);
 Route::get('/branches/{id}',[BranchController::class,'show_single_branches']);
 Route::delete('/branches/delete/{id}',[BranchController::class,'delete_branches']);
 
+//Employee
+Route::get('/employees',[EmployeeController::class,'show_all_employee']);
+Route::get('/employees/{id}',[EmployeeController::class,'show_single_employee']);
+Route::delete('/employees/delete/{id}',[EmployeeController::class,'delete_employee']);
 
 Route::group(['middleware' => ['auth:sanctum']],function () {
     //Authentication
     Route::post('/logout',[AuthController::class,'logout']);
+    
     //Blog
     Route::post('/blogs',[BlogController::class,'create_blog']);
     Route::post('/blogs/{id}',[BlogController::class,'update_blog']);
@@ -58,5 +65,10 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     //Branch
     Route::post('/branches',[BranchController::class,'create_branches']);    
     Route::post('/branches/{id}',[BranchController::class,'update_branches']);
+
+    //Employee
+    Route::post('/employees',[EmployeeController::class,'create_employee']);
+    Route::post('/employees/{id}',[EmployeeController::class,'update_employee']);
+
 }
 );
