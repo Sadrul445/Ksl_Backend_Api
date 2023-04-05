@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->string('employee_type');
+            $table->string('employee_name');
+            $table->string('employee_designation');
+            $table->string('employee_contact_number');
+            $table->string('employee_about');
+            $table->string('image');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
