@@ -57,7 +57,9 @@ class EmployeeController extends Controller
             [
                 'message' => 'Employee Created Successfully',
                 'status' => 'success'
-            ],200);
+            ],
+            200
+        );
     }
     //---[ UPDATE_EMPLOYEE ]---
     public function update_employee(Request $request, $id)
@@ -70,11 +72,11 @@ class EmployeeController extends Controller
         $employee->employee_designation = $request->input('employee_designation');
         $employee->employee_contact_number = $request->input('employee_contact_number');
         $employee->employee_about = $request->input('employee_about');
-        
+
         //update the employee_image file if wanna uploaded new image
 
-        if($request->hasFile('image')){
-            $destination = public_path('Create_Employee_Images/'. $employee->image);
+        if ($request->hasFile('image')) {
+            $destination = public_path('Create_Employee_Images/' . $employee->image);
             if (File::exists($destination)) {
                 File::delete($destination);
             }
@@ -85,8 +87,8 @@ class EmployeeController extends Controller
         $image_data = base64_decode($base64_encoded_employee_image);
 
         //Naming and Storing File
-        $employee_image_name ='KSL_Employee_Image_' . time() . '.png';
-        Storage::disk('public')->put('Updated_Employee_Images/{$employee_image}',$image_data);
+        $employee_image_name = 'KSL_Employee_Image_' . time() . '.png';
+        Storage::disk('public')->put('Updated_Employee_Images/{$employee_image}', $image_data);
 
         $employee->image = "Updated_Employee_Images/{$employee_image_name}";
         $employee->save();
@@ -96,12 +98,30 @@ class EmployeeController extends Controller
                 'message' => 'Employee Updated Successfully',
                 'status' => 'updated'
             ]
-            );
+        );
     }
 
     //---[ DELETE_EMPLOYEE ]---
-    public function delete_employee(Request $request,$id)
+    public function delete_employee(Request $request, $employee_id)
     {
-        return Employee::destroy($id);
+        $user_id = $request->input('user_id');
+    
+        $employee = Employee::where('id', $employee_id)
+                            ->where('user_id', $user_id)
+                            ->first();
+    
+        if (!$employee) {
+            return response()->json([
+                'message' => 'Employee not found',
+                'status' => 'error'
+            ], 404);
+        }
+    
+        $employee->delete();
+    
+        return response()->json([
+            'message' => 'Employee Deleted Successfully',
+            'status' => 'success'
+        ], 200);
     }
 }

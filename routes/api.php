@@ -23,28 +23,28 @@ Route::post('/login',[AuthController::class,'login']);
 //blog
 Route::get('/blogs',[BlogController::class,'show_all_blog']);
 Route::get('/blogs/{id}',[BlogController::class,'show_single_blog']);
-Route::delete('/blogs/delete/{id}',[BlogController::class,'destroy_blog']);
+Route::delete('/blogs/delete/{blog_id}',[BlogController::class,'destroy_blog']);
 
 //media
 Route::get('/medias',[MediaController::class,'show_all_media']);
 Route::get('/medias/{id}',[MediaController::class,'show_single_media']);
-Route::delete('/medias/delete/{id}',[MediaController::class,'destroy_media']);
+Route::delete('/medias/delete/{media_id}',[MediaController::class,'destroy_media']);
 
 //digital_booths
 
 Route::get('/booths',[BoothController::class,'show_all_booths']);
 Route::get('/booths/{id}',[BoothController::class,'show_single_booths']);
-Route::delete('/booths/delete/{id}',[BoothController::class,'delete_booths']);
+Route::delete('/booths/delete/{booth_id}',[BoothController::class,'delete_booths']);
 
 //Branch
 Route::get('/branches',[BranchController::class,'show_all_branches']);
 Route::get('/branches/{id}',[BranchController::class,'show_single_branches']);
-Route::delete('/branches/delete/{id}',[BranchController::class,'delete_branches']);
+Route::delete('/branches/delete/{branch_id}',[BranchController::class,'delete_branches']);
 
 //Employee
 Route::get('/employees',[EmployeeController::class,'show_all_employee']);
 Route::get('/employees/{id}',[EmployeeController::class,'show_single_employee']);
-Route::delete('/employees/delete/{id}',[EmployeeController::class,'delete_employee']);
+Route::delete('/employees/delete/{employee_id}',[EmployeeController::class,'delete_employee']);
 
 Route::group(['middleware' => ['auth:sanctum']],function () {
     //Authentication

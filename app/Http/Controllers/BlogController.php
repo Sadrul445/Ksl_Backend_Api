@@ -101,9 +101,9 @@ class BlogController extends Controller
         //Naming & Storing File
         $image_name = 'KSL_Blog_Image_' . time() . '.png';
         Storage::disk('public')->put("Updated_Blog_Images/{$image_name}", $image_data);
-        
+
         $blog->image = "Updated_Blog_Images/{$image_name}";
-        
+
         // Save the updated blog to the database
         $blog->save();
 
@@ -121,8 +121,22 @@ class BlogController extends Controller
             // 'data' => $blog,
         ]);
     }
-    public function destroy_blog(Request $request, $id)
+    public function destroy_blog(Request $request, $blog_id)
     {
-        return Blog::destroy($id);
+        $user_id = $request->input('user_id');
+        $blog = Blog::where('id', $blog_id)
+                            ->where('user_id', $user_id)
+                            ->first();
+        if (!$blog) {
+            return response()->json([
+                'message' => 'Blog not found',
+                'status' => 'error'
+            ], 404);
+        }  
+        $blog->delete();
+        return response()->json([
+            'message' => 'Blog Deleted Successfully',
+            'status' => 'success'
+        ], 200);
     }
 }

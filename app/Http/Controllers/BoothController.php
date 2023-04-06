@@ -63,8 +63,22 @@ class BoothController extends Controller
         ]);
     }
     //---[ DELETE_BOOTHS ]---
-    public function delete_booths(Request $request, $id)
+    public function delete_booths(Request $request, $booth_id)
     {
-        return Booth::destroy($id);
+        $user_id = $request->input('user_id');
+        $booth = Booth::where('id', $booth_id)
+                            ->where('user_id', $user_id)
+                            ->first();
+        if (!$booth) {
+            return response()->json([
+                'message' => 'Booth not found',
+                'status' => 'error'
+            ], 404);
+        }  
+        $booth->delete();
+        return response()->json([
+            'message' => 'Booth Deleted Successfully',
+            'status' => 'success'
+        ], 200);
     }
 }

@@ -64,8 +64,22 @@ class BranchController extends Controller
         );
     }
     //---[ DELETE_BRANCHES ]---
-    public function delete_branches(Request $request, $id)
+    public function delete_branches(Request $request, $branch_id)
     {
-        return Branch::destroy($id);
+        $user_id = $request->input('user_id');
+        $branch = Branch::where('id', $branch_id)
+                            ->where('user_id', $user_id)
+                            ->first();
+        if (!$branch) {
+            return response()->json([
+                'message' => 'Branch not found',
+                'status' => 'error'
+            ], 404);
+        }  
+        $branch->delete();
+        return response()->json([
+            'message' => 'Branch Deleted Successfully',
+            'status' => 'success'
+        ], 200);
     }
 }

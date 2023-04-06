@@ -99,8 +99,22 @@ class MediaController extends Controller
             // 'data' => $media,
         ]);
     }
-    public function destroy_media(Request $request, $id)
+    public function destroy_media(Request $request, $media_id)
     {
-        return Media::destroy($id);
+        $user_id = $request->input('user_id');
+        $media = Media::where('id', $media_id)
+                            ->where('user_id', $user_id)
+                            ->first();
+        if (!$media) {
+            return response()->json([
+                'message' => 'Media not found',
+                'status' => 'error'
+            ], 404);
+        }  
+        $media->delete();
+        return response()->json([
+            'message' => 'Media Deleted Successfully',
+            'status' => 'success'
+        ], 200);
     }
 }
