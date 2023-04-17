@@ -6,7 +6,6 @@ use App\Http\Controllers\BoothController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MediaController;
-use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +30,6 @@ Route::get('/medias/{id}',[MediaController::class,'show_single_media']);
 Route::delete('/medias/delete/{media_id}',[MediaController::class,'destroy_media']);
 
 //digital_booths
-
 Route::get('/booths',[BoothController::class,'show_all_booths']);
 Route::get('/booths/{id}',[BoothController::class,'show_single_booths']);
 Route::delete('/booths/delete/{booth_id}',[BoothController::class,'delete_booths']);
