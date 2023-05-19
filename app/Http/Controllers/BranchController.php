@@ -14,7 +14,8 @@ class BranchController extends Controller
         $request->validate([
             'branches_name' => 'required|string',
             'branches_address' => 'required|string',
-            'branches_helpline' => 'required|string',
+            'branches_helpline_1' => 'required|string',
+            'branches_helpline_2' => 'required|string',
             'branches_email' => 'required|string',
             'user_id' => 'required|integer|exists:users,id',
         ]);
@@ -22,7 +23,8 @@ class BranchController extends Controller
             [
                 'branches_name' => $request->branches_name,
                 'branches_address' => $request->branches_address,
-                'branches_helpline' => $request->branches_helpline,
+                'branches_helpline_1' => $request->branches_helpline_1,
+                'branches_helpline_2' => $request->branches_helpline_2,
                 'branches_email' => $request->branches_email,
                 'user_id' => $request->user_id,
             ]
@@ -51,7 +53,8 @@ class BranchController extends Controller
 
         $branches->branches_name = $request->input('branches_name');
         $branches->branches_address = $request->input('branches_address');
-        $branches->branches_helpline = $request->input('branches_helpline');
+        $branches->branches_helpline_1 = $request->input('branches_helpline_1');
+        $branches->branches_helpline_2 = $request->input('branches_helpline_2');
         $branches->branches_email = $request->input('branches_email');
         $branches->user_id = $request->input('user_id');
         $branches->save();
