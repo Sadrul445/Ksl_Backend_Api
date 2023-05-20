@@ -6,6 +6,7 @@ use App\Http\Controllers\BoothController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\UpcomingipoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -68,5 +69,7 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::post('/employees',[EmployeeController::class,'create_employee']);
     Route::post('/employees/{id}',[EmployeeController::class,'update_employee']);
 
+    //Upcomingipo
+    Route::post('/upcomingipo',[UpcomingipoController::class,'create_upcomingipo']);
 }
 );
