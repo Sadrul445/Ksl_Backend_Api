@@ -47,7 +47,7 @@ Route::get('/employees/{id}',[EmployeeController::class,'show_single_employee'])
 Route::delete('/employees/delete/{employee_id}',[EmployeeController::class,'delete_employee']);
 
 //IPO
-Route::get('/ipo',[IpoController::class.'show_all_ipo']);
+Route::get('/ipo',[IpoController::class,'show_all_ipo']);
 Route::get('/ipo/{id}',[IpoController::class,'show_single_ipo']);
 Route::delete('/ipo/delete/{id}',[IpoController::class,'delete_ipo']);
 

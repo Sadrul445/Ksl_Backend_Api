@@ -11,7 +11,7 @@ class IpoController extends Controller
         $ipos = Ipo::all();
         return response()->json($ipos, 200);
     }
-    public static function show_single_upcomingipo(Request $request, $id)
+    public static function show_single_ipo(Request $request, $id)
     {
         $ipo = Ipo::findOrFail($id);
         return response()->json($ipo, 200);
