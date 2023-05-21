@@ -7,6 +7,7 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\UpcomingipoController;
+use App\Http\Controllers\IpoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,10 +46,10 @@ Route::get('/employees',[EmployeeController::class,'show_all_employee']);
 Route::get('/employees/{id}',[EmployeeController::class,'show_single_employee']);
 Route::delete('/employees/delete/{employee_id}',[EmployeeController::class,'delete_employee']);
 
-//UpcomingIPO
-Route::get('/ipo/upcoming',[UpcomingipoController::class.'show_all_upcomingipo']);
-Route::get('/ipo/upcoming/{id}',[UpcomingipoController::class,'show_single_upcomingipo']);
-Route::delete('/ipo/upcoming/delete/{id}',[UpcomingipoController::class,'delete_upcomingipo']);
+//IPO
+Route::get('/ipo',[IpoController::class.'show_all_ipo']);
+Route::get('/ipo/{id}',[IpoController::class,'show_single_ipo']);
+Route::delete('/ipo/delete/{id}',[IpoController::class,'delete_ipo']);
 
 Route::group(['middleware' => ['auth:sanctum']],function () {
     //Authentication
@@ -74,8 +75,8 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::post('/employees',[EmployeeController::class,'create_employee']);
     Route::post('/employees/{id}',[EmployeeController::class,'update_employee']);
 
-    //Upcomingipo
-    Route::post('/ipo/upcoming',[UpcomingipoController::class,'create_upcomingipo']);
-    Route::post('/ipo/upcoming/{id}',[UpcomingipoController::class,'update_upcomingipo']);
+    //Ipo
+    Route::post('/ipo',[IpoController::class,'create_ipo']);
+    Route::post('/ipo/{id}',[IpoController::class,'update_ipo']);
 }
 );

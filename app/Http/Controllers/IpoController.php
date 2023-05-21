@@ -1,25 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Upcomingipo;
+use App\Models\Ipo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Request as FacadesRequest;
-use Illuminate\Support\Facades\Response;
 
-class UpcomingipoController extends Controller
+class IpoController extends Controller
 {
-    public static function show_all_upcomingipo(Request $request)
+    public static function show_all_ipo(Request $request)
     {
-        $upcoming_ipos = Upcomingipo::all();
-        return response()->json($upcoming_ipos, 200);
+        $ipos = Ipo::all();
+        return response()->json($ipos, 200);
     }
     public static function show_single_upcomingipo(Request $request, $id)
     {
-        $upcoming_ipo = Upcomingipo::findOrFail($id);
-        return response()->json($upcoming_ipo, 200);
+        $ipo = Ipo::findOrFail($id);
+        return response()->json($ipo, 200);
     }
-    public static function create_upcomingipo(Request $request)
+    public static function create_ipo(Request $request)
     {
         //validation
         $request->validate(
@@ -34,7 +31,7 @@ class UpcomingipoController extends Controller
                 'type' => 'required|string'
             ]
         );
-        $upcoming_ipos = Upcomingipo::create(
+        $ipos = Ipo::create(
             [
                 'company_name' => $request->company_name,
                 'cutt_off_date' => $request->cutt_off_date,
@@ -44,33 +41,35 @@ class UpcomingipoController extends Controller
                 'nav' => $request->nav,
                 'rate' => $request->rate,
                 'type' => $request->type,
+                'status'=>$request->status //set the default status as 'upcoming_ipo'  
             ]
         );
         return response()->json([
-            'message' => 'Upcoming IPO Created Successfully',
+            'message' => 'IPO Created Successfully',
             'status' => 'success'
         ], 200);
     }
-    public static function update_upcomingipo(Request $request, $id)
+    public static function update_ipo(Request $request, $id)
     {
-        $upcoming_ipos = Upcomingipo::findOrFail($id);
+        $ipos = Ipo::findOrFail($id);
 
-        $upcoming_ipos->company_name = $request->input('company_name');
-        $upcoming_ipos->cutt_off_date = $request->input('cutt_off_date');
-        $upcoming_ipos->minimum_application_amount = $request->input('minimum_application_amount');
-        $upcoming_ipos->total_share = $request->input('total_share');
-        $upcoming_ipos->eps = $request->input('eps');
-        $upcoming_ipos->nav = $request->input('nav');
-        $upcoming_ipos->rate = $request->input('rate');
-        $upcoming_ipos->type = $request->input('type');
-        $upcoming_ipos->save();
+        $ipos->company_name = $request->input('company_name');
+        $ipos->cutt_off_date = $request->input('cutt_off_date');
+        $ipos->minimum_application_amount = $request->input('minimum_application_amount');
+        $ipos->total_share = $request->input('total_share');
+        $ipos->eps = $request->input('eps');
+        $ipos->nav = $request->input('nav');
+        $ipos->rate = $request->input('rate');
+        $ipos->type = $request->input('type');
+        $ipos->status = $request->input('status');
+        $ipos->save();
 
         return response()->json([
-            'message' => 'Upcoming IPO Updated Successfully',
+            'message' => ' IPO Updated Successfully',
             'status' => 'updated'
         ], 200);
     }
-    public static function delete_upcomingipo(Request $request,$id)
+    public static function delete_ipo(Request $request,$id)
     {
         if(empty($id)){
             return response()->json([
@@ -79,17 +78,17 @@ class UpcomingipoController extends Controller
             ],400);
         }
 
-        $upcoming_ipo = Upcomingipo::findOrFail($id);
-        if(!$upcoming_ipo){
+        $ipo = Ipo::findOrFail($id);
+        if(!$ipo){
             return response()->json([
-                'message' => 'Upcoming IPO not found',
+                'message' => 'IPO not found',
                 'status' => 'error'
             ],404);
         }
 
-        $upcoming_ipo->delete();
+        $ipo->delete();
         return response()->json([
-            'message' => 'Upcoming IPO deleted successfully',
+            'message' => 'IPO deleted successfully',
             'status' => 'success'
         ],200);
 
