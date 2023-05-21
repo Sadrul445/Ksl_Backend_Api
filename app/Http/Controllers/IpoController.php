@@ -41,7 +41,7 @@ class IpoController extends Controller
                 'nav' => $request->nav,
                 'rate' => $request->rate,
                 'type' => $request->type,
-                'status'=>$request->status //set the default status as 'upcoming_ipo'  
+                'status'=>$request->status
             ]
         );
         return response()->json([
@@ -91,6 +91,5 @@ class IpoController extends Controller
             'message' => 'IPO deleted successfully',
             'status' => 'success'
         ],200);
-
     }
 }
