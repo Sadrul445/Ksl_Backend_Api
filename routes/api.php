@@ -45,6 +45,11 @@ Route::get('/employees',[EmployeeController::class,'show_all_employee']);
 Route::get('/employees/{id}',[EmployeeController::class,'show_single_employee']);
 Route::delete('/employees/delete/{employee_id}',[EmployeeController::class,'delete_employee']);
 
+//UpcomingIPO
+Route::get('/ipo/upcoming',[UpcomingipoController::class.'show_all_upcomingipo']);
+Route::get('/ipo/upcoming/{id}',[UpcomingipoController::class,'show_single_upcomingipo']);
+Route::delete('/ipo/upcoming/delete/{id}',[UpcomingipoController::class,'delete_upcomingipo']);
+
 Route::group(['middleware' => ['auth:sanctum']],function () {
     //Authentication
     Route::post('/logout',[AuthController::class,'logout']);
@@ -70,6 +75,7 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::post('/employees/{id}',[EmployeeController::class,'update_employee']);
 
     //Upcomingipo
-    Route::post('/upcomingipo',[UpcomingipoController::class,'create_upcomingipo']);
+    Route::post('/ipo/upcoming',[UpcomingipoController::class,'create_upcomingipo']);
+    Route::post('/ipo/upcoming/{id}',[UpcomingipoController::class,'update_upcomingipo']);
 }
 );

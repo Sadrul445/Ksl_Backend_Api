@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('minimum_application_amount');
             $table->string('total_share');
             $table->decimal('eps');
-            $table->decimal('nav',10,2)->nullable()->default(null);
+            $table->decimal('nav');
             $table->integer('rate');
             $table->string('type');
             $table->timestamps();
