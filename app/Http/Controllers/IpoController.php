@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Ipo;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,7 @@ class IpoController extends Controller
                 'nav' => $request->nav,
                 'rate' => $request->rate,
                 'type' => $request->type,
-                'status'=>$request->status
+                'status' => $request->status
             ]
         );
         return response()->json([
@@ -65,31 +66,31 @@ class IpoController extends Controller
         $ipos->save();
 
         return response()->json([
-            'message' => ' IPO Updated Successfully',
+            'message' => 'IPO Updated Successfully',
             'status' => 'updated'
         ], 200);
     }
-    public static function delete_ipo(Request $request,$id)
+    public static function delete_ipo(Request $request, $id)
     {
-        if(empty($id)){
+        if (empty($id)) {
             return response()->json([
                 'message' => 'Id not Found',
                 'status' => 'error'
-            ],400);
+            ], 400);
         }
 
         $ipo = Ipo::findOrFail($id);
-        if(!$ipo){
+        if (!$ipo) {
             return response()->json([
                 'message' => 'IPO not found',
                 'status' => 'error'
-            ],404);
+            ], 404);
         }
 
         $ipo->delete();
         return response()->json([
             'message' => 'IPO deleted successfully',
             'status' => 'success'
-        ],200);
+        ], 200);
     }
 }
