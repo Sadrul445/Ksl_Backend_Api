@@ -25,14 +25,14 @@ class ContactController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
         // Process form submission (e.g., save to database, send email)
-         $contact = new Contact();
-         $contact->name = $request->input('name');
-         $contact->email = $request->input('email');
-         $contact->phone_number = $request->input('phone_number');
-         $contact->content = $request->input('content');
-         $contact->save();
-         // Send email notification
- 
+        $contact = new Contact();
+        $contact->name = $request->input('name');
+        $contact->email = $request->input('email');
+        $contact->phone_number = $request->input('phone_number');
+        $contact->content = $request->input('content');
+        $contact->save();
+
+        // Send email notification
         Mail::to('sadrul@kslbd.net')->send(new MarkdownEmail(
             $contact->name,
             $contact->email,
@@ -44,8 +44,8 @@ class ContactController extends Controller
         return response()->json(
             [
                 'message' => 'Form submitted successfully',
-                'status'=>'success'
+                'status' => 'success'
             ]
-);
+        );
     }
 }
